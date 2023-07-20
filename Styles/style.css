@@ -22,12 +22,11 @@
 }
 
 body {
-    height: 96vh;
+    height: 95.3vh;
     margin-top: 10%;
     text-align: center;
     background-image: linear-gradient(to bottom right, var(--background-first-color), var(--background-last-color));
     background-repeat: no-repeat;
-    overflow: hidden;
 }
 
 h1 {
@@ -174,9 +173,9 @@ input[type="checkbox"]:checked ~ .checkmark::after {
 }
 
 .strength-box {
+    background-color: transparent;
     width: 12px;
     height: 1.4rem;
-    border: 2px solid var(--text-color);
 }
 
 #submit {
