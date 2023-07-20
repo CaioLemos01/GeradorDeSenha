@@ -29,7 +29,6 @@ let counterValue = 0;
 slider.addEventListener('input', function() {
   counterValue = this.value;
   counter.textContent = counterValue;
-  verifier();
   color();
 });
 
@@ -171,5 +170,6 @@ function functionNumSym() {
 
 submit.addEventListener('click', function() {
   result.innerHTML = '';
+  verifier();
   result.innerHTML = password;
 })

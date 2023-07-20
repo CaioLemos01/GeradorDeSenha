@@ -21,6 +21,10 @@
     font-family: var(--font), 'Times New Roman', Times, sans-serif;
 }
 
+html {
+    height: auto;
+}
+
 body {
     height: 95.3vh;
     margin-top: 10%;
