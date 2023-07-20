@@ -4,7 +4,7 @@ const submit = document.querySelector('#btn-submit');
 const strengthBox1 = document.querySelector('#strength-box-1');
 const strengthBox2 = document.querySelector('#strength-box-2');
 const strengthBox3 = document.querySelector('#strength-box-3');
-const result = document.querySelector('#password');
+var result = document.querySelector('#password');
 
 const backgroundFirstColor = getComputedStyle(document.documentElement).getPropertyValue('--background-first-color');
 const backgroundLastColor = getComputedStyle(document.documentElement).getPropertyValue('--background-last-color');
@@ -44,6 +44,7 @@ slider.addEventListener('input', (event) => {
 
 function verifier() {
   if(counterValue != '0' && counterValue > 2) {
+    password = '';
     createPassword();
   } else return;
 }
@@ -113,7 +114,7 @@ function createPassword() {
 }
 
 function functionAll() {
-  for(var i = 0; i < 2; i++) {
+  for(let i = 0; i < 3; i++) {
     var randomLetter = Math.floor(Math.random() * 25);
     var randomLetter2 = Math.floor(Math.random() * 25);
     var randomNumber = Math.floor(Math.random() * 10);
@@ -169,6 +170,6 @@ function functionNumSym() {
 }
 
 submit.addEventListener('click', function() {
-  result.value = '';
+  result.innerHTML = '';
   result.innerHTML = password;
 })
