@@ -49,13 +49,23 @@ h1 {
     justify-content: space-between;
 }
 
+#placeholder {
+    border: none;
+    background-color: transparent;
+    font-family: var(--font);
+    font-size: 16px;
+}
+
 #copy {
     color: var(--secondary-color);
 }
 
 #copy:hover {
-    color: var(--text-color);
     cursor: pointer;
+}
+
+#copy:active {
+    color: var(--text-color);
 }
 
 #section-header {
@@ -131,6 +141,7 @@ input[type="checkbox"] {
     height: 20px;
     border: 2px solid var(--text-color);
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .checkmark::after {
@@ -151,7 +162,7 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked ~ .checkmark::after {
-    display: block;
+    display: flex;
 }
 
 #security {

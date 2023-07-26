@@ -16,10 +16,12 @@ const medium = getComputedStyle(document.documentElement).getPropertyValue('--me
 const strong = getComputedStyle(document.documentElement).getPropertyValue('--strong');
 //
 
-const checkBoxUpperCase = document.getElementById('iuppercase'); 
-const checkBoxLowerCase = document.getElementById('ilowercase'); 
+// Dados de escolha do usuário vindos do formulário do HTML
+const checkBoxUpperCase = document.getElementById('iuppercase');
+const checkBoxLowerCase = document.getElementById('ilowercase');
 const checkBoxNumber = document.getElementById('inumber'); 
 const checkBoxSymbol = document.getElementById('isymbol');
+//
 
 const upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 const lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -74,114 +76,144 @@ function color() {
 function createPassword() {
   if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionAll();
   
-  if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxNumber.checked) functionUpperLowerNum();
-  if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxSymbol.checked) functionUpperLowerSym();
-  if(checkBoxUpperCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionUpperNumSym();
-  if(checkBoxLowerCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionLowerNumSym();
+  else if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxNumber.checked) functionUpperLowerNum();
+  else if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxSymbol.checked) functionUpperLowerSym();
+  else if(checkBoxUpperCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionUpperNumSym();
+  else if(checkBoxLowerCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionLowerNumSym();
   
-  if(checkBoxUpperCase.checked && checkBoxLowerCase.checked) functionUpperLower();
-  if(checkBoxUpperCase.checked && checkBoxNumber.checked) functionUpperNum();
-  if(checkBoxUpperCase.checked && checkBoxSymbol.checked) functionUpperSym();
-  if(checkBoxLowerCase.checked && checkBoxNumber.checked) functionLowerNum();
-  if(checkBoxLowerCase.checked && checkBoxSymbol.checked) functionLowerSym();
-  if(checkBoxNumber.checked && checkBoxSymbol.checked) functionNumSym();
-  
+  else if(checkBoxUpperCase.checked && checkBoxLowerCase.checked) functionUpperLower();
+  else if(checkBoxUpperCase.checked && checkBoxNumber.checked) functionUpperNum();
+  else if(checkBoxUpperCase.checked && checkBoxSymbol.checked) functionUpperSym();
+  else if(checkBoxLowerCase.checked && checkBoxNumber.checked) functionLowerNum();
+  else if(checkBoxLowerCase.checked && checkBoxSymbol.checked) functionLowerSym();
+  else if(checkBoxNumber.checked && checkBoxSymbol.checked) functionNumSym();
+  else alert("Inclua ao menos um elemento em sua senha");
 }
 
+const functions = [];
+
 function functionAll() {
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
   fUpper();
   fLower();
   fNumber();
   fSymbol();
+
+  if(counterValue > 4) {
+    var length = counterValue - 4;
+    for(var i = 0; i < length; i++) {
+      functions[randomFasterFunctions()]();
+    }
+  } else if(counterValue == 4) callback();
+  else return;
+
   function callback() {
     setTimeout(() => {
       result.innerHTML = password;
-    }, 80);
+    }, 48);
   }
   callback();
 }
 
 function functionUpperLowerNum() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionUpperLowerSym() {
-
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionUpperNumSym() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionLowerNumSym() {
-
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 
 
 function functionUpperLower() {
-
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionUpperNum() {
-
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionUpperSym() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionLowerNum() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionLowerSym() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function functionNumSym() {
-  
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
 }
 
 function fUpper() {
   setTimeout(function () {
-    var randomLetter = Math.floor(Math.random() * 25);
-    password += upperCase[randomLetter];
+    password += upperCase[Math.floor(Math.random() * 25)];
     return password;
   }, randomNumberFunction());
+}
+
+function fUpperFaster() {
+  password += upperCase[Math.floor(Math.random() * 25)];
+  return password;
 }
 
 function fLower() {
   setTimeout(function () {
-    var randomLetter2 = Math.floor(Math.random() * 25);
-    password += lowerCase[randomLetter2];
+    password += lowerCase[Math.floor(Math.random() * 25)];
     return password;
   }, randomNumberFunction());
+}
+
+function fLowerFaster() {
+  password += lowerCase[Math.floor(Math.random() * 25)];
+  return password;
 }
 
 function fNumber() {
   setTimeout(function () {
-    var randomNumber = Math.floor(Math.random() * 10);
-    password += numbers[randomNumber];
+    password += numbers[Math.floor(Math.random() * 10)];
     return password;
   }, randomNumberFunction());
+}
+
+function fNumberFaster() {
+  password += numbers[Math.floor(Math.random() * 10)];
+  return password;
 }
 
 function fSymbol() {
   setTimeout(function () {
-    var randomSymbol = Math.floor(Math.random() * 8);
-    password += symbols[randomSymbol];
+    password += symbols[Math.floor(Math.random() * 8)];
     return password;
   }, randomNumberFunction());
 }
 
-function randomNumberFunction(min = 10, max = 20) {
-  const num = Math.floor(Math.random() * (max - min) + min);
-  return num;
+function fSymbolFaster() {
+  password += symbols[Math.floor(Math.random() * 8)];
+  return password;
+}
+
+function randomFasterFunctions() {
+  return (Math.floor(Math.random() * 4));
+}
+
+function randomNumberFunction(min = 1, max = 4) {
+  return (Math.floor(Math.random() * (max - min) + min));
 }
 
 submit.addEventListener('click', function() {
   result.innerHTML = '';
   verifier();
-  result.innerHTML = password;
 })
