@@ -1,3 +1,4 @@
+// Variáveis
 const counter = document.querySelector('#counter');
 const slider = document.querySelector('#irange');
 const copy = document.querySelector('#copy');
@@ -6,6 +7,9 @@ const strengthBox1 = document.querySelector('#strength-box-1');
 const strengthBox2 = document.querySelector('#strength-box-2');
 const strengthBox3 = document.querySelector('#strength-box-3');
 var result = document.querySelector('#password');
+var functions = [];
+var password = '';
+//
 
 // Variáveis que fazem a ligação com o CSS e utilizam as mesmas cores e/ou propriedades:
 const backgroundFirstColor = getComputedStyle(document.documentElement).getPropertyValue('--background-first-color');
@@ -24,20 +28,23 @@ const checkBoxNumber = document.getElementById('inumber');
 const checkBoxSymbol = document.getElementById('isymbol');
 //
 
+// Base de escolhas para possíveis senhas
 const upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 const lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const symbols = ['!', '@', '#', '$', '%', '&', '*', '?'];
-var functions = [];
-var password = '';
+//
 
+// Verificador do contador
 let counterValue = 0;
 slider.addEventListener('input', function() {
   counterValue = this.value;
   counter.textContent = counterValue;
   color();
 });
+//
 
+// Função responsável por preencher a parte de trás da barra do slider
 slider.addEventListener('input', (event) => {
   const tempSliderValue = event.target.value;
   counter.textContent = tempSliderValue;
@@ -46,14 +53,18 @@ slider.addEventListener('input', (event) => {
   
   slider.style.backgroundImage = `linear-gradient(to right, ${secondaryColor} ${progress}%, ${backgroundFirstColor} ${progress}%, ${backgroundLastColor} ${progress}%)`;
 })
+//
 
+// Verifica a quantidade de caracteres da senha
 function verifier() {
   if(counterValue != '0' && counterValue >= 2) {
     password = '';
     createPassword();
   } else return;
 }
+//
 
+// Atribui cor para identificação da força da senha
 function color() {
   if(counterValue == '0' || counterValue == '1') {
     strengthBox1.style.backgroundColor = 'transparent';
@@ -74,7 +85,9 @@ function color() {
     strengthBox3.style.backgroundColor = strong;
   } else strengthBox3.style.backgroundColor = 'transparent';
 }
+//
 
+// Verifica qual o tipo de senha que deve ser gerada
 function createPassword() {
   if(checkBoxUpperCase.checked && checkBoxLowerCase.checked && checkBoxNumber.checked && checkBoxSymbol.checked) functionAll();
   
@@ -96,11 +109,14 @@ function createPassword() {
   else if(checkBoxSymbol.checked) functionSymbol();
   else alert("Inclua ao menos um elemento em sua senha");
 }
-      
+//
+
+// Função com todas as variáveis
 function functionAll() {
   functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
   generatePassword();
 }
+//
 
 // Funções com somente três variáveis
 function functionUpperLowerNum() {
@@ -180,7 +196,7 @@ function functionSymbol() {
 
 // Funções que geram os números das senhas
 function fUpper() {
-  setTimeout(function () {
+  setTimeout(() => {
     password += upperCase[Math.floor(Math.random() * 25)];
     return password;
   }, randomNumberFunction());
@@ -192,7 +208,7 @@ function fUpperFaster() {
 }
 
 function fLower() {
-  setTimeout(function () {
+  setTimeout(() => {
     password += lowerCase[Math.floor(Math.random() * 25)];
     return password;
   }, randomNumberFunction());
@@ -204,7 +220,7 @@ function fLowerFaster() {
 }
 
 function fNumber() {
-  setTimeout(function () {
+  setTimeout(() => {
     password += numbers[Math.floor(Math.random() * 10)];
     return password;
   }, randomNumberFunction());
@@ -216,7 +232,7 @@ function fNumberFaster() {
 }
 
 function fSymbol() {
-  setTimeout(function () {
+  setTimeout(() => {
     password += symbols[Math.floor(Math.random() * 8)];
     return password;
   }, randomNumberFunction());
