@@ -1,5 +1,6 @@
 const counter = document.querySelector('#counter');
 const slider = document.querySelector('#irange');
+const copy = document.querySelector('#copy');
 const submit = document.querySelector('#btn-submit');
 const strengthBox1 = document.querySelector('#strength-box-1');
 const strengthBox2 = document.querySelector('#strength-box-2');
@@ -27,6 +28,7 @@ const upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', '
 const lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const symbols = ['!', '@', '#', '$', '%', '&', '*', '?'];
+var functions = [];
 var password = '';
 
 let counterValue = 0;
@@ -87,76 +89,96 @@ function createPassword() {
   else if(checkBoxLowerCase.checked && checkBoxNumber.checked) functionLowerNum();
   else if(checkBoxLowerCase.checked && checkBoxSymbol.checked) functionLowerSym();
   else if(checkBoxNumber.checked && checkBoxSymbol.checked) functionNumSym();
+
+  else if(checkBoxUpperCase.checked) functionUpper();
+  else if(checkBoxLowerCase.checked) functionLower();
+  else if(checkBoxNumber.checked) functionNumber();
+  else if(checkBoxSymbol.checked) functionSymbol();
   else alert("Inclua ao menos um elemento em sua senha");
 }
-
-const functions = [];
-
+      
 function functionAll() {
   functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
-  fUpper();
-  fLower();
-  fNumber();
-  fSymbol();
-
-  if(counterValue > 4) {
-    var length = counterValue - 4;
-    for(var i = 0; i < length; i++) {
-      functions[randomFasterFunctions()]();
-    }
-  } else if(counterValue == 4) callback();
-  else return;
-
-  function callback() {
-    setTimeout(() => {
-      result.innerHTML = password;
-    }, 48);
-  }
-  callback();
+  generatePassword();
 }
 
+// Funções com somente três variáveis
 function functionUpperLowerNum() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fLowerFaster, fNumberFaster);
+  generatePassword();
 }
 
 function functionUpperLowerSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fLowerFaster, fSymbolFaster);
+  generatePassword();
 }
 
 function functionUpperNumSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fNumberFaster, fSymbolFaster);
+  generatePassword();
 }
 
 function functionLowerNumSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fLowerFaster, fNumberFaster, fSymbolFaster);
+  generatePassword();
 }
+//
 
-
-
+// Funções com somente duas variáveis
 function functionUpperLower() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fLowerFaster);
+  generatePassword();
 }
 
 function functionUpperNum() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fNumberFaster);
+  generatePassword();
 }
 
 function functionUpperSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fUpperFaster, fSymbolFaster);
+  generatePassword();
 }
 
 function functionLowerNum() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fLowerFaster, fNumberFaster);
+  generatePassword();
 }
 
 function functionLowerSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fLowerFaster, fSymbolFaster);
+  generatePassword();
 }
 
 function functionNumSym() {
-  functions.push(fUpperFaster, fLowerFaster, fNumberFaster, fSymbolFaster);
+  functions.push(fNumberFaster, fSymbolFaster);
+  generatePassword();
+}
+//
+
+// Funções com somente uma variável
+function functionUpper() {
+  functions.push(fUpperFaster);
+  generatePassword();
 }
 
+function functionLower() {
+  functions.push(fLowerFaster);
+  generatePassword();
+}
+
+function functionNumber() {
+  functions.push(fNumberFaster);
+  generatePassword();
+}
+
+function functionSymbol() {
+  functions.push(fSymbolFaster);
+  generatePassword();
+}
+//
+
+// Funções que geram os números das senhas
 function fUpper() {
   setTimeout(function () {
     password += upperCase[Math.floor(Math.random() * 25)];
@@ -204,16 +226,49 @@ function fSymbolFaster() {
   password += symbols[Math.floor(Math.random() * 8)];
   return password;
 }
+//
 
+// Função geradora de senhas
+function generatePassword() {
+  for(let i in functions) functions[i]();
+
+  if(counterValue > functions.length) {
+    var length = counterValue - functions.length;
+    for(var i = 0; i < length; i++) {
+      functions[randomFasterFunctions()]();
+    }
+  } else if(counterValue == functions.length) callback();
+  else return;
+
+  function callback() {
+    setTimeout(() => {
+      result.innerHTML = password;
+    }, counterValue * 4);
+  }
+  callback();
+}
+//
+
+// Geradores de números aleatórios
 function randomFasterFunctions() {
-  return (Math.floor(Math.random() * 4));
+  return (Math.floor(Math.random() * functions.length));
 }
 
 function randomNumberFunction(min = 1, max = 4) {
   return (Math.floor(Math.random() * (max - min) + min));
 }
+//
+
+copy.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(result.innerText);
+  } catch (err) {
+    console.err("Não foi possível copiar o conteúdo: ", err);
+  }
+});
 
 submit.addEventListener('click', function() {
+  functions = [];
   result.innerHTML = '';
   verifier();
 })
