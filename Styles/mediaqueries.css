@@ -1,0 +1,30 @@
+@charset 'UTF-8';
+
+@media screen and (min-width: 768px) {
+    body {
+        width: 400px;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    body {
+        width: 600px;
+        height: 100vh;
+        margin: auto;
+    }
+
+    #copy:hover {
+        color: var(--text-color);
+        cursor: pointer;
+    }
+
+    .text:hover {
+        cursor: pointer;
+    }
+
+    #btn-submit:hover {
+        background-color: var(--text-color);
+        cursor: pointer;
+    }
+}

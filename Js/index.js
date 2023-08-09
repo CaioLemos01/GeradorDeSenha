@@ -278,6 +278,7 @@ function randomNumberFunction(min = 1, max = 4) {
 copy.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(result.innerText);
+    alert('Senha copiada com sucesso!');
   } catch (err) {
     console.err("Não foi possível copiar o conteúdo: ", err);
   }

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Monda:wght@400;700&display=swap');
 
 :root {
-    --font: 'Monda';
+    --font: 'Monda', 'Times New Roman', 'sans-serif';
     --text-color: #e6e5e9;
     --h1-color: #616161;
     --background-first-color: #15141c;
@@ -187,6 +187,7 @@ input[type="checkbox"]:checked ~ .checkmark::after {
 .strength-box {
     width: 12px;
     height: 1.4rem;
+    border-radius: 2px;
 }
 
 #submit {
